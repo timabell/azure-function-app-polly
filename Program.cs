@@ -18,6 +18,7 @@ public class Program
             {
                 services.AddHttpClient<HttpTriggerFunction>(client => { client.BaseAddress = new Uri("https://example.org/pollyftw"); })
                     .AddPolicyHandler(GetRetryPolicy());
+                services.AddScoped<HttpTriggerFunction>();
             })
             .Build();
 
