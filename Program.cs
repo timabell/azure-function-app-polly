@@ -16,7 +16,7 @@ public class Program
             })
             .ConfigureServices((context, services) =>
             {
-                services.AddHttpClient("HttpTriggerFunctionClient", client => { client.BaseAddress = new Uri("https://example.org/pollyftw"); })
+                services.AddHttpClient("HttpTriggerFunctionClient")
                     .AddPolicyHandler(GetRetryPolicy());
                 services.AddScoped<HttpTriggerFunction>();
             })

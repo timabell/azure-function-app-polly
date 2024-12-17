@@ -18,27 +18,18 @@ public class HttpTriggerFunction
     public async Task<HttpResponseData> Run(
         [HttpTrigger(AuthorizationLevel.Function, "get", "post")] HttpRequestData req)
     {
-        _logger.LogInformation("HttpClient BaseAddress: {BaseAddress}", _httpClient.BaseAddress);
-        _logger.LogInformation("C# HTTP trigger function processed a request.");
-
         var response = req.CreateResponse(HttpStatusCode.OK);
 
         try
         {
-            var result = await _httpClient.GetAsync("http://localhost:8899");
-            if (result.IsSuccessStatusCode)
-            {
-                await response.WriteStringAsync("Request to localhost:8899 was successful.");
-            }
-            else
-            {
-                await response.WriteStringAsync("Request to localhost:8899 failed.");
-            }
+            var url = "http://localhost:8899";
+            var result = await _httpClient.GetAsync(url);
+            await response.WriteStringAsync($"Request to {url} returned status code {result.StatusCode}");
         }
         catch (HttpRequestException ex)
         {
             _logger.LogError(ex, "Error calling localhost:8899");
-            await response.WriteStringAsync("Error calling localhost:8899");
+            await response.WriteStringAsync("Error calling localhost:8899.");
         }
 
         return response;
