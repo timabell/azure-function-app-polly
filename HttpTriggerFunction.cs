@@ -8,16 +8,17 @@ public class HttpTriggerFunction
     private readonly ILogger _logger;
     private readonly HttpClient _httpClient;
 
-    public HttpTriggerFunction(ILoggerFactory loggerFactory, HttpClient httpClient)
+    public HttpTriggerFunction(ILoggerFactory loggerFactory, IHttpClientFactory httpClientFactory)
     {
         _logger = loggerFactory.CreateLogger<HttpTriggerFunction>();
-        _httpClient = httpClient;
+        _httpClient = httpClientFactory.CreateClient("HttpTriggerFunctionClient"); // Named client
     }
 
     [Function("HttpTriggerFunction")]
     public async Task<HttpResponseData> Run(
         [HttpTrigger(AuthorizationLevel.Function, "get", "post")] HttpRequestData req)
     {
+        _logger.LogInformation("HttpClient BaseAddress: {BaseAddress}", _httpClient.BaseAddress);
         _logger.LogInformation("C# HTTP trigger function processed a request.");
 
         var response = req.CreateResponse(HttpStatusCode.OK);
