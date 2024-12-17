@@ -2,7 +2,7 @@
   "profiles": {
     "azure_function_app_polly": {
       "commandName": "Project",
-      "commandLineArgs": "--port 7100",
+      "commandLineArgs": "--port 7071 --verbose",
       "launchBrowser": false
     }
   }
