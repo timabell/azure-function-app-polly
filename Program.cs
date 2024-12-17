@@ -9,14 +9,14 @@ public class Program
     public static void Main(string[] args)
     {
         var host = new HostBuilder()
-            .ConfigureFunctionsWebApplication()
+            .ConfigureFunctionsWorkerDefaults()
             .ConfigureAppConfiguration((context, config) =>
             {
                 config.AddJsonFile("local.settings.json", optional: true, reloadOnChange: true);
             })
             .ConfigureServices((context, services) =>
             {
-                services.AddHttpClient<HttpTriggerFunction>()
+                services.AddHttpClient<HttpTriggerFunction>(client => { client.BaseAddress = new Uri("https://example.org/pollyftw"); })
                     .AddPolicyHandler(GetRetryPolicy());
             })
             .Build();
