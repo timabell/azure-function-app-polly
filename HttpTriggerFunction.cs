@@ -2,8 +2,6 @@ using Microsoft.Azure.Functions.Worker;
 using Microsoft.Azure.Functions.Worker.Http;
 using Microsoft.Extensions.Logging;
 using System.Net;
-using System.Net.Http;
-using System.Threading.Tasks;
 
 public class HttpTriggerFunction
 {
