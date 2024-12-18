@@ -3,20 +3,32 @@ Example of polly retries in a http triggered function app
 https://github.com/timabell/azure-function-app-polly
 
 ```
-[2024-12-18T00:11:11.275Z] Start processing HTTP request GET http://localhost:8899/
-[2024-12-18T00:11:11.281Z] Sending HTTP request GET http://localhost:8899/
-[2024-12-18T00:11:11.313Z] Received HTTP response headers after 17.0399ms - 500
-[2024-12-18T00:11:11.319Z] Retry 1 encountered an error:  InternalServerError. Waiting 00:00:01 before next retry.
-[2024-12-18T00:11:12.002Z] Host lock lease acquired by instance ID '000000000000000000000000000C0158'.
-[2024-12-18T00:11:12.322Z] Sending HTTP request GET http://localhost:8899/
-[2024-12-18T00:11:12.327Z] Received HTTP response headers after 4.2533ms - 500
-[2024-12-18T00:11:12.328Z] Retry 2 encountered an error:  InternalServerError. Waiting 00:00:02 before next retry.
-[2024-12-18T00:11:14.329Z] Sending HTTP request GET http://localhost:8899/
-[2024-12-18T00:11:14.331Z] Received HTTP response headers after 2.2101ms - 500
-[2024-12-18T00:11:14.333Z] Retry 3 encountered an error:  InternalServerError. Waiting 00:00:04 before next retry.
-[2024-12-18T00:11:18.331Z] Sending HTTP request GET http://localhost:8899/
-[2024-12-18T00:11:18.332Z] Received HTTP response headers after 0.66ms - 500
-[2024-12-18T00:11:18.334Z] End processing HTTP request after 7069.3016ms - 500
+[2024-12-18T22:52:47.755Z] Worker process started and initialized.
+
+Functions:
+
+  HttpTriggerFunction: [GET,POST] http://localhost:7071/api/HttpTriggerFunction
+
+For detailed output, run func with --verbose flag.
+[2024-12-18T22:52:54.911Z] Executing 'Functions.HttpTriggerFunction' (Reason='This function was programmatically called via the host APIs.', Id=12345b89-e0b7-46f7-a8fb-d5bed0c87a91)
+[2024-12-18T22:52:55.046Z] Start processing HTTP request GET http://localhost:8899/
+[2024-12-18T22:52:55.058Z] Sending HTTP request GET http://localhost:8899/
+[2024-12-18T22:52:55.096Z] Received HTTP response headers after 17.6235ms - 429
+[2024-12-18T22:52:55.104Z] Execution attempt. Source: 'HttpTriggerFunctionClient-example-handler//Retry', Operation Key: '', Result: '429', Handled: 'True', Attempt: '0', Execution Time: 43.5664ms
+[2024-12-18T22:52:55.113Z] Resilience event occurred. EventName: 'OnRetry', Source: 'HttpTriggerFunctionClient-example-handler//Retry', Operation Key: '', Result: '429'
+[2024-12-18T22:52:56.882Z] Sending HTTP request GET http://localhost:8899/
+[2024-12-18T22:52:56.886Z] Received HTTP response headers after 4.1432ms - 429
+[2024-12-18T22:52:56.887Z] Execution attempt. Source: 'HttpTriggerFunctionClient-example-handler//Retry', Operation Key: '', Result: '429', Handled: 'True', Attempt: '1', Execution Time: 4.8842ms
+[2024-12-18T22:52:56.888Z] Resilience event occurred. EventName: 'OnRetry', Source: 'HttpTriggerFunctionClient-example-handler//Retry', Operation Key: '', Result: '429'
+[2024-12-18T22:53:00.811Z] Sending HTTP request GET http://localhost:8899/
+[2024-12-18T22:53:00.812Z] Received HTTP response headers after 1.0909ms - 429
+[2024-12-18T22:53:00.812Z] Execution attempt. Source: 'HttpTriggerFunctionClient-example-handler//Retry', Operation Key: '', Result: '429', Handled: 'True', Attempt: '2', Execution Time: 1.5748ms
+[2024-12-18T22:53:00.812Z] Resilience event occurred. EventName: 'OnRetry', Source: 'HttpTriggerFunctionClient-example-handler//Retry', Operation Key: '', Result: '429'
+[2024-12-18T22:53:06.825Z] Sending HTTP request GET http://localhost:8899/
+[2024-12-18T22:53:06.827Z] Received HTTP response headers after 1.232ms - 200
+[2024-12-18T22:53:06.827Z] Execution attempt. Source: 'HttpTriggerFunctionClient-example-handler//Retry', Operation Key: '', Result: '200', Handled: 'False', Attempt: '3', Execution Time: 1.6907ms
+[2024-12-18T22:53:06.841Z] End processing HTTP request after 11809.1965ms - 200
+[2024-12-18T22:53:06.909Z] Executed 'Functions.HttpTriggerFunction' (Succeeded, Id=12345b89-e0b7-46f7-a8fb-d5bed0c87a91, Duration=12021ms)
 ```
 
 Notes.
