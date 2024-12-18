@@ -24,6 +24,7 @@ Notes.
 - Using named http client because the generic one didn't get injected so the retry didn't work
 - Azurite has to be running, see `docker-compose.yml` for the setup
 - Originally had aspnet bits in the function app but gpt suggested removing them and that works and is simpler
+- [Microsoft.Extensions.Http.Polly](https://github.com/App-vNext/Polly.Extensions.Http?tab=readme-ov-file) is deprecated, long live [polly+resilience](https://learn.microsoft.com/en-gb/dotnet/core/resilience/http-resilience?tabs=dotnet-cli)
 
 Usage
 
