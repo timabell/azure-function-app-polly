@@ -1,6 +1,8 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Http.Resilience;
+using Polly;
 
 public class Program
 {
@@ -15,7 +17,17 @@ public class Program
             .ConfigureServices((context, services) =>
             {
                 services.AddHttpClient("HttpTriggerFunctionClient")
-                    .AddStandardResilienceHandler();
+                    //.AddStandardResilienceHandler(); // https://learn.microsoft.com/en-us/dotnet/core/resilience/http-resilience
+                    .AddResilienceHandler("example-handler", static builder =>
+                    {
+                        builder.AddRetry(new HttpRetryStrategyOptions
+                        {
+                            BackoffType = DelayBackoffType.Linear,
+                            MaxRetryAttempts = 4,
+                            UseJitter = true,
+                            Delay = TimeSpan.FromSeconds(2),
+                        });
+                    });
             })
             .Build();
 
